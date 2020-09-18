@@ -1,7 +1,7 @@
 ######### Confidence Intervals, Equivalence ########
 ######### and noninferiority tests ##################
 ######### for time-to-event outcomes ################
-############## CASE STUDY veteran #################
+##################### CASE STUDY  #################
 ########### Author: Kathrin Möllenhoff ##############
 
 source("conf_weibull.R")
@@ -183,13 +183,10 @@ loglikelihood_t <- function(w) {
 
 optim1 <- optim(par=theta_r,fn=loglikelihood_r,hessian=TRUE)
 optim2 <- optim(par=theta_t,fn=loglikelihood_t,hessian=TRUE)
+
 #calculating observed Fisher info
 C1 <- solve(optim1$hessian[1:2,1:2])
 C2 <- solve(optim2$hessian[1:2,1:2])
-
-#estimating rates of censoring distribution
-rate_r <- optim(par=c(theta_r,0.0001),fn=loglikelihood_r2)$par[3]
-rate_t <- optim(par=c(theta_t,0.0001),start,fn=loglikelihood_t2)$par[3]
 
 for(m in 1:length(gridc)){
   t0 <- gridc[m]
